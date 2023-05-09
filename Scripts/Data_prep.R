@@ -7,7 +7,7 @@ library(haven)
 library(ggplot2)
 
 
-pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fertilizer_Conflict/'
+pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/'
 
 load(paste0(pth, 'acled_2001_2020.rda'))
 
@@ -36,4 +36,4 @@ trip_BEV=acledipe[(acledipe$event_type %in% c("Battles", "Explosions/Remote viol
                                               "Violence against civilians")),]
 
 save(trip_BEV, file =paste0(pth, "trip_BEV.rda"))
-
+save(acledipe, file=paste0(pth, "acledipe.rda"))

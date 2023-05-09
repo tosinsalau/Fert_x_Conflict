@@ -1,5 +1,7 @@
 #GET/SAVE relevant info
 
+pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/'
+
 load(paste0(pth, 'trip_BEV.rda'))
 
 
