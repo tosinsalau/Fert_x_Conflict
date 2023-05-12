@@ -19,6 +19,6 @@ prots = prots [
   ,]
 
 
-a1 = prots[,c('actor1', "assoc_actor_1", 'actor2',"assoc_actor_2", 'mon_yr', 'notes')]
+a1 = prots[,c('actor1', "assoc_actor_1", 'actor2',"assoc_actor_2", 'mon_yr', 'notes', 'event_id_cnty', 'event_id_no_cnty')]
 
 save(a1, file=paste0(pth, "a1.rda"))
