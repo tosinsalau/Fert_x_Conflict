@@ -1,5 +1,6 @@
 library(readr)
 library(dplyr)
+library(lubridate)
 
 pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/'
 
@@ -8,13 +9,17 @@ load(paste0(pth, 'acled_2001_2020.rda'))
 Collab= Collab[, -1]
 
 
-###country year collabs
+###geberarte isos
 
 Collab_final= merge(Collab, acled[, c("iso3",
                                       "event_id_cnty", 
                                       "event_id_no_cnty", 
                               "iso")],
             by=c("event_id_cnty", "event_id_no_cnty"),all.x =TRUE)
+
+#create year variable
+Collab_final= Collab_final %>% 
+  mutate(year= substr(mon_yr, 1, 4))
 
 
 save(Collab_final, file=paste0(pth, "Final_Data_collab.rda"))
