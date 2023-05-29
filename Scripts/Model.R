@@ -26,4 +26,10 @@ mod= glm.nb(total_collab ~ Subsidy_price1 + log(GDP_per_capita)+ civ_war + urb_t
               factor(year) +factor(cname), data = dat)
 summary(mod)
 
+
+zpoisMod = zeroinfl(total_collab ~ Subsidy_price1 + log(GDP_per_capita)+
+                      log(total_pop)+ log(rural_pop) + rur_tot_pop + part_dem +
+                      opp_free + elect_dem +
+                      factor(year) +factor(cname), data = dat, dist='negbin', link="logit")
+summary(zpoisMod)
                  
