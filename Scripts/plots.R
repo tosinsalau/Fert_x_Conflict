@@ -8,23 +8,37 @@ library(ggplot2)
 library(lubridate)
 pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/All_Data/'
 
+pth2= "C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/Nigerian_states/"
+
+
 load(paste0(pth, 'dat.rda'))
+load(paste0(pth, 'dat.rda'))
+load(paste0(pth2, 'Urea_YR'))
+
+dat <- dat %>% 
+  filter(country != "Malawi")
 
 #descriptive stats
 
-tmp= dat[, c("Subsidy_price1", "GDP_per_capita", "total_pop", "pop_0_14", "life_exp",
-             "mort_rate", "urb_tot_pop","democ", "autoc", "pop_growth", "civ_war")]
+# tmp= dat[, c("Subsidy_price1", "GDP_per_capita", "total_pop", "pop_0_14", "life_exp",
+#              "mort_rate", "rur_tot_pop","democ", "autoc", "pop_growth", "civ_war")]
+
+tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "Elec_yr", "logGDP")]
+
+tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "GDP_per_capita")]
 
 tmp_renamed <- tmp %>% rename("Subsidy Price" = Subsidy_price1,
-                              "Total Population" = total_pop,
-                              "Youth bulge(% of total 14 and under)" = pop_0_14,
-                              " Life Expectancy" = life_exp,
+                              #"Total Population" = total_pop,
+                              #"Youth bulge(% of total 14 and under)" = pop_0_14,
+                              #" Life Expectancy" = life_exp,
                               "Mortality Rate" = mort_rate, 
-                              "Urban population (% of total)" =urb_tot_pop,
-                              "Polity V democracy" = democ,
-                              "Polity V Autocracy" = autoc,
-                              "Population growth" =pop_growth,
-                              "Civil War Occurrence" = civ_war)
+                              "Rural population (% of total)" = rur_tot_pop,
+                              "Election Year"= Elec_yr,
+                              "Log(GDP per capita)" = logGDP)
+                              #"Polity V democracy" = democ,
+                              #"Polity V Autocracy" = autoc,
+                              #"Population growth" =pop_growth,
+                              #"Civil War Occurrence" = civ_war)
 
 datasummary_skim(tmp_renamed)
 datasummary_skim(dat)
@@ -35,10 +49,83 @@ ggplot(dat, aes(Subsidy_price1,total_collab))+
   xlab("Amount of Subsidy ($)") + 
   ylab("Number of Collaborative Protests") + # Set axis label
   theme_bw()+
+  facet_wrap(~cname)
   theme(axis.ticks.x=element_blank(),
         axis.ticks.y=element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
+  
+  
+  
+  ggplot(Urea_YR, aes(year,subsidy))+
+    geom_point()+
+    xlab("") + 
+    ylab("Amount of Subsidy ($)") + # Set axis label
+    scale_x_continuous(breaks= c(2010, 2012, 2014, 2016, 2018, 2020))+
+    theme_bw()+
+    facet_wrap(~State)
+  theme(axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+  
+  
+  ggplot(dat, aes(year,Subsidy_price1))+
+    geom_line()+
+    xlab("") + 
+    ylab("Amount of Subsidy ($)") + # Set axis label
+    scale_x_continuous(breaks= c(2010, 2012, 2014, 2016, 2018, 2020))
+   
+  
+  ggplot(Urea_YR, aes(subsidy,weight))+
+    geom_point()+
+    xlab("") + 
+    ylab("") + # Set axis label
+    #scale_x_continuous(breaks= c(2010, 2012, 2014, 2016, 2018, 2020))+
+    theme_bw()+
+    facet_wrap(~State)
+  theme(axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+  
+  
+  
+  andr= dat %>% 
+    group_by(cname) %>% 
+    summarise(avgg = mean(Subsidy_price1))
+  
+  andr2= dat %>% 
+    group_by(cname) %>% 
+    summarise(allt = sum(total_collab))
+  
+ 
+  
+   
+  
+
+ggplot(Urea_MY, aes(subsidy, weight))+
+  geom_point()+
+  xlab("Amount of Subsidy ($)") + 
+  ylab("Number of Collaborative Protests") + # Set axis label
+  theme_bw()+
+  theme(axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+
+
+ggplot(dua, aes(avgg))+
+  geom_point()+
+  xlab("Amount of Subsidy ($)") + 
+  #ylab("Number of Collaborative Protests") + # Set axis label
+  theme_bw()+
+  theme(axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
 
 hist(dat$Subsidy_price1)
 hist(dat$total_collab)
@@ -89,6 +176,13 @@ ggplot(dat, aes(year, Subsidy_price1, total_collab)) +
   geom_line() +
   facet_wrap(~cname)
 
+
+ggplot(dat, aes(year,USDprice)) +
+  geom_line() +
+  scale_x_continuous(breaks= c(2010, 2012, 2014, 2016, 2018, 2020))+
+  facet_wrap(~cname)+
+  xlab("") + 
+  ylab("USDprice")
 
 # # Load the reshape2 package
 # library(reshape2)

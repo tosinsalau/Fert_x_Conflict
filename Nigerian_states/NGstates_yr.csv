@@ -1,0 +1,146 @@
+﻿State,Area,year,Product,USDprice
+Anambra,Abagana,2017,Urea,23.01
+Anambra,Abagana,2018,Urea,18.66
+Anambra,Abagana,2019,Urea,17.66
+Anambra,Abagana,2020,Urea,19.72
+Ekiti,Ado-Ekiti,2010,Urea,29.85
+Ekiti,Ado-Ekiti,2011,Urea,28.33
+Ondo,Akure,2015,Urea,27.46
+Ondo,Akure,2016,Urea,27.3
+Ondo,Akure,2017,Urea,23.22
+Ondo,Akure,2018,Urea,19.95
+Ondo,Akure,2019,Urea,18.25
+Ondo,Akure,2020,Urea,19.99
+Delta,Asaba,2015,Urea,27.39
+Delta,Asaba,2016,Urea,28.64
+Delta,Asaba,2017,Urea,22.91
+Delta,Asaba,2018,Urea,18.13
+Delta,Asaba,2019,Urea,19.91
+Delta,Asaba,2020,Urea,19.33
+Anambra,Awka,2015,Urea,27.79
+Anambra,Awka,2016,Urea,27.79
+Anambra,Awka,2017,Urea,23.32
+Anambra,Awka,2018,Urea,18.59
+Anambra,Awka,2019,Urea,17.67
+Anambra,Awka,2020,Urea,20.15
+Delta,Asaba,2015,Urea,27.39
+Delta,Asaba,2016,Urea,28.64
+Delta,Asaba,2017,Urea,22.91
+Delta,Asaba,2018,Urea,18.13
+Delta,Asaba,2019,Urea,19.91
+Delta,Asaba,2020,Urea,19.33
+Jigawa,Babura,2010,Urea,26.48
+Jigawa,Babura,2011,Urea,28.8
+Edo,Benin City,2014,Urea,29.63
+Edo,Benin City,2015,Urea,27.81
+Edo,Benin City,2016,Urea,29.42
+Edo,Benin City,2017,Urea,24.73
+Edo,Benin City,2018,Urea,20.87
+Edo,Benin City,2019,Urea,18.51
+Edo,Benin City,2020,Urea,19.21
+Niger,Bida,2010,Urea,26.53
+Niger,Bida,2017,Urea,24.19
+Benue,Buruku,2017,Urea,22.35
+Benue,Buruku,2018,Urea,20.11
+Benue,Buruku,2019,Urea,18.93
+Benue,Buruku,2020,Urea,19.59
+Federal Capital Territory,Bwari,2010,Urea,26.07
+Federal Capital Territory,Bwari,2011,Urea,33.25
+Federal Capital Territory,Bwari,2014,Urea,29.63
+Federal Capital Territory,Bwari,2015,Urea,27.94
+Benue,Gboko,2015,Urea,30.32
+Benue,Gboko,2016,Urea,28.19
+Benue,Gboko,2017,Urea,24.02
+Benue,Gboko,2018,Urea,20.27
+Benue,Gboko,2019,Urea,18.32
+Benue,Gboko,2020,Urea,20.13
+Gombe,Gombe,2010,Urea,26.58
+Gombe,Gombe,2011,Urea,30.61
+Gombe,Gombe,2012,Urea,9.61
+Federal Capital Territory,Gwagwalada,2011,Urea,33.25
+Federal Capital Territory,Gwagwalada,2014,Urea,29.63
+Federal Capital Territory,Gwagwalada,2015,Urea,27.94
+Federal Capital Territory,Gwagwalada,2017,Urea,22.01
+Federal Capital Territory,Gwagwalada,2018,Urea,18.91
+Federal Capital Territory,Gwagwalada,2019,Urea,18.63
+Federal Capital Territory,Gwagwalada,2020,Urea,20.1
+Kano,Gwarzo,2010,Urea,29.82
+Oyo,Ibadan,2010,Urea,25.56
+Oyo,Ibadan,2011,Urea,25.94
+Oyo,Ibadan,2012,Urea,32.83
+Oyo,Ibadan,2013,Urea,30.69
+Oyo,Ibadan,2014,Urea,29.63
+Oyo,Ibadan,2015,Urea,27.94
+Kogi,Idah,2014,Urea,29.63
+Kogi,Idah,2015,Urea,27.94
+Lagos,Ikeja,2016,Urea,26.14
+Lagos,Ikeja,2017,Urea,22.68
+Lagos,Ikeja,2018,Urea,18.63
+Lagos,Ikeja,2019,Urea,18.37
+Lagos,Ikeja,2020,Urea,19.45
+Kwara,Ilorin,2010,Urea,26.12
+Kwara,Ilorin,2015,Urea,27.72
+Kwara,Ilorin,2016,Urea,27.46
+Kwara,Ilorin,2017,Urea,22.94
+Kwara,Ilorin,2018,Urea,18.17
+Kwara,Ilorin,2019,Urea,18.33
+Kwara,Ilorin,2020,Urea,19.87
+Oyo,Iluju,2011,Urea,24.79
+Osun,Iwo,2010,Urea,29.1
+Osun,Iwo,2011,Urea,28.23
+Taraba,Jalingo,2010,Urea,25.64
+Taraba,Jalingo,2011,Urea,26.45
+Taraba,Jalingo,2012,Urea,33.59
+Taraba,Jalingo,2015,Urea,25.77
+Taraba,Jalingo,2016,Urea,23.63
+Adamawa,Jimeta,2010,Urea,19.88
+Adamawa,Jimeta,2011,Urea,23.56
+Adamawa,Jimeta,2012,Urea,31.34
+Adamawa,Jimeta,2013,Urea,30.08
+Kaduna,Kaduna,2011,Urea,26.62
+Kaduna,Kaduna,2012,Urea,40.17
+Kaduna,Kaduna,2013,Urea,35.51
+Kaduna,Kaduna,2015,Urea,22.51
+Kaduna,Kaduna,2016,Urea,24.45
+Kano,Kano,2010,Urea,23.82
+Kano,Kano,2011,Urea,26.05
+Kano,Kano,2016,Urea,31.09
+Katsina,Katsina,2011,Urea,44.09
+Katsina,Katsina,2012,Urea,31.1
+Katsina,Katsina,2013,Urea,30.06
+Federal Capital Territory,Kuje,2010,Urea,33.1
+Delta,Kwale,2017,Urea,23.52
+Federal Capital Territory,Kwali,2014,Urea,29.63
+Federal Capital Territory,Kwali,2015,Urea,27.94
+Kwara,Lafiagi,2017,Urea,24.53
+Niger,Minna,2015,Urea,21.36
+Niger,Minna,2016,Urea,26.62
+Niger,Minna,2017,Urea,23.82
+Niger,Minna,2018,Urea,20.37
+Niger,Minna,2019,Urea,18.7
+Niger,Minna,2020,Urea,20.05
+Adamawa,Mubi,2010,Urea,25.17
+Adamawa,Mubi,2011,Urea,29.17
+Oyo,Ogbomoso,2011,Urea,28.8
+Oyo,Ogbomoso,2013,Urea,32.33
+Kaduna,Sabon Gari,2010,Urea,23.08
+Kaduna,Sabon Gari,2017,Urea,22.93
+Kaduna,Sabon Gari,2018,Urea,18.98
+Kaduna,Sabon Gari,2019,Urea,18.6
+Kaduna,Sabon Gari,2020,Urea,20.23
+Niger,Suleja,2010,Urea,26.47
+Kano,Tudun Wada,2017,Urea,22.47
+Kano,Tudun Wada,2018,Urea,20.08
+Kano,Tudun Wada,2019,Urea,19.12
+Kano,Tudun Wada,2020,Urea,20.81
+Taraba,Wukari,2011,Urea,30.32
+Taraba,Wukari,2012,Urea,36.99
+Federal Capital Territory,Wuse,2010,Urea,26.19
+Federal Capital Territory,Wuse,2011,Urea,31.11
+Federal Capital Territory,Wuse,2012,Urea,51.06
+Federal Capital Territory,Wuse,2015,Urea,25.7
+Federal Capital Territory,Wuse,2016,Urea,28.62
+Federal Capital Territory,Wuse,2017,Urea,24.12
+Federal Capital Territory,Wuse,2018,Urea,19.14
+Federal Capital Territory,Wuse,2019,Urea,17.86
+Federal Capital Territory,Wuse,2020,Urea,19.84

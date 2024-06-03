@@ -4,7 +4,7 @@ pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Confl
 
 load(paste0(pth, 'trip_BEV.rda'))
 
-#subset actors to only those with ten battle events and at least 50 fatalities
+#subset actors to only those with ten battle events and at least 10 fatalities
 fat_actors = trip_BEV[(trip_BEV$fatalities>=10), ]
 
 #begin to get out actors: for actor1

@@ -1,0 +1,286 @@
+---
+title: "Untitled"
+author: "Tosin"
+date: "2023-10-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+
+dat$fac_cn = as.factor(dat$cname)
+glm_mod=glmmadmb(total_collab ~ Subsidy_price1 + mort_rate + rur_tot_pop + (1 | fac_cn),
+                 data=dat, family ='nbinom')
+summary(glm_mod)
+```
+
+```{r}
+# calc vals to test
+qt25sub = quantile(dat$Subsidy_price1, probs=.25)
+qt75sub = quantile(dat$Subsidy_price1, probs=.75)
+
+# now time to create my gdp scenario
+subScenarios = with(dat, cbind(
+  1, 
+  c(qt25sub, qt75sub), 
+  mean(mort_rate),
+  mean(rur_tot_pop)))
+
+rownames(subScenarios) = c(
+  '25th gdp', 
+  '75th gdp'
+)
+
+ivs = c(
+  'Subsidy_price1','mort_rate','rur_tot_pop'
+ )
+colnames(subScenarios) = c('intercept', ivs)
+
+subScenarios
+
+#would need to transpose the matrix when matrix multiplying with betas
+#poor countries more likley to receive rebel support
+
+glm_mod=glmmadmb(total_collab ~ Subsidy_price1 + mort_rate + rur_tot_pop + 
+                   Elec_yr + logGDP
+                   #log(GDP_per_capita)
+                 + (1 | fac_cn),
+                 data=dat, family ='nbinom') #polity not included
+summary(glm_mod)
+
+cnt = dat[, c("Country", "Subsidy_price1")]
+cnt= cnt %>% 
+  filter(Country == "Nigeria")
+
+vals = cnt[, 2]
+
+subScenarios = with(dat, cbind(
+  1, 
+  vals, 
+  mean(mort_rate),
+  mean(rur_tot_pop),
+  median(Elec_yr),
+  mean(logGDP)))
+
+beta = coef(glm_mod)
+
+xbeta = subScenarios %*% beta # %*% is the symbol for matrix mult
+probs = exp(xbeta) #or plogis function
+probs 
+
+show= cbind(probs, vals)
+
+lohi=show[c(7,2),]
+
+colnames(lohi)= c("Protest", "Subsidy")
+
+cd= as.table(lohi)
+```
+### lets calculate some predictions
+
+for now we will just calculate the means and forget about uncertainty
+
+```{r}
+# subScenarios = rbind(noFriends, friends)
+# subScenariosDF = data.frame(subScenarios)
+# # names(friendsScenariosDF) = c('Intercept', ivs)
+# #make sure variables are in the same order
+# predict(glm_mod, newdata=subScenariosDF, type='response')
+```
+
+### lets calculate some predictions without the help of predict
+
+```{r}
+#friendsScenarios = rbind(noFriends, friends)
+beta = coef(glm_mod)
+
+xbeta = subScenarios %*% beta # %*% is the symbol for matrix mult
+probs = exp(xbeta) #or plogis function
+probs 
+
+show= cbind(probs, vals)
+```
+
+The predicted probability of rebel support when that rebel group has a transnational constituency is 62% versus 34% when they do not, holding all other measures at their central tendency.
+
+## extract measure of parameter uncertainty  estimation uncertainty: uncertainty for estimators
+
+```{r}
+varcov = vcov(glm_mod)
+```
+
+### so how do we use this info
+
+we're going to simulate from the betas that we've estimated to incorporate estimation uncertainty
+
+```{r}
+set.seed(6886)
+
+sims = 1000
+draws = rmvnorm(sims, beta, varcov) #for every beta, we have a thousand possible beta values
+```
+
+Now lets use this info to generate predictions with uncertainty!
+
+```{r}
+xbeta = draws %*% t(subScenarios) # %*% is the symbol for matrix mult... replacing draws with betas we use above
+probs = exp(xbeta)
+```
+
+
+```{r}
+probsdf = data.frame(probs)
+names(probsdf) = c('low', 'high')
+probsdf = reshape2::melt(probsdf)
+names(probsdf)[2] = 'pred'
+
+bism = probsdf %>%
+group_by(variable) %>%
+summarize(
+mu = mean(pred),
+qt95hi = quantile(pred, .975),
+qt95lo = quantile(pred, .025),
+qt90hi = quantile(pred, .95),
+qt90lo = quantile(pred, .05)
+)
+```
+
+# how do we visualize
+
+first organize into a data structure that will work well with ggplot
+
+```{r}
+dat = data.frame(probs)
+ggData = melt(dat)
+```
+
+and now lets make some density distributions
+
+```{r}
+ggplot(ggData, aes(x=value, color=variable, fill=variable)) +
+  geom_density()
+```
+
+so one other piece of useful info here would be the average prediction, in order to incorporate that into the plot we need to calculate it and put it into the df
+
+```{r}
+
+ggData = ggData %>%
+  group_by(variable) %>%
+  mutate(
+    mean = mean(value)
+  )
+
+
+#we are looking a apsecific scenario (for tk), to understand whether scenarios are different, we need to subtract them form one another, plot distribution, if 90% CIC dont overlap then theyre statistically significantly different from eahc other
+
+# diff_freinds_prob = probs[,2]- probs[,1]
+# quantile (diff_friends_probs, probs = c(0.025, 0.975))
+
+```
+
+now that we've calculated it, lets puts it into the plot with geom_vline
+
+```{r}
+
+ggplot(ggData, aes(x=value, color=variable, fill=variable)) +
+  geom_density() + 
+  geom_vline(aes(xintercept=mean))
+```
+
+THAT IS HORRIBLY UGLY, EW, I WILL GRADE YOU POORLY JUST FOR AESTHETICS
+
+first lets fix the scenario labels
+
+```{r}
+
+# ggData$variable[ggData$variable=='noFriends'] = 'No Transnat. Constit.'
+# ggData$variable[ggData$variable=='friends'] = 'Transnat. Constit.'
+
+ggData$variable = as.character(ggData$variable)
+
+ggData = ggData %>%
+  mutate(
+    varClean=replace(variable, variable=='noFriends', 'No Transnat.\nConstit.'),
+    varClean=replace(varClean, varClean=='friends', 'Transnat. Constit.')    
+  )
+```
+
+now lets finish cleaning plot
+
+
+```{r}
+
+ggplot(ggData, aes(x=value, color=varClean, fill=varClean)) +
+  geom_density(alpha=.6) + 
+  geom_vline(aes(xintercept=mean, color=varClean), linetype='dashed') +
+  labs(
+    x='Probability of Rebel Support', 
+    y='Density', 
+    color='', fill=''
+  ) +
+  theme_bw() +
+  theme(
+    legend.position='top',
+    axis.ticks=element_blank(),
+    panel.border=element_blank()
+  )
+  
+
+```
+
+
+S code
+
+```{r}
+
+apply(probs, 2, function(x){ quantile(x, probs=seq(0,1,.1))  }) %>% round(.,2)
+
+varcov
+
+summary(draws)
+
+beta
+
+subScenarios
+
+summary(xbeta)
+summary(probs)
+
+
+probsdf = data.frame(probs)
+names(probsdf) = c('low', 'high')
+probsdf = reshape2::melt(probsdf)
+names(probsdf)[2] = 'pred'
+
+
+bism = probs %>%
+group_by(subScenariosDF) %>%
+summarize(
+mu = mean(pred),
+qt95hi = quantile(pred, .975),
+qt95lo = quantile(pred, .025),
+qt90hi = quantile(pred, .95),
+qt90lo = quantile(pred, .05)
+)
+
+bism
+```
+

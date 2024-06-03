@@ -27,7 +27,7 @@ africa= acled[acled$country %in% acf_c, ]
 acledipe= africa %>% 
   mutate(date2=ymd(event_date))
 
-acledipe = acledipe%>% 
+acledipe = acledipe %>% 
   mutate(mon_yr=format_ISO8601(date2, precision = "ym"))
 
 #subset to violent events
