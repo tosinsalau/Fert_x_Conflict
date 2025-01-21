@@ -13,35 +13,44 @@ pth2= "C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Confl
 
 load(paste0(pth, 'dat.rda'))
 load(paste0(pth, 'dat.rda'))
-load(paste0(pth2, 'Urea_YR'))
+load(paste0(pth2, 'Urea_YR.rda'))
 
-dat <- dat %>% 
-  filter(country != "Malawi")
+# dat <- dat %>% 
+#   filter(country != "Malawi")
+# 
+# save(dat, file = paste0(pth, "dat.rda"))
 
 #descriptive stats
 
 # tmp= dat[, c("Subsidy_price1", "GDP_per_capita", "total_pop", "pop_0_14", "life_exp",
 #              "mort_rate", "rur_tot_pop","democ", "autoc", "pop_growth", "civ_war")]
 
-tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "Elec_yr", "logGDP")]
+tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "Elec_yr", "logGDP", "total_collab", "autoc")]
 
-tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "GDP_per_capita")]
+#tmp= dat[, c("Subsidy_price1","mort_rate", "rur_tot_pop", "GDP_per_capita")]
 
 tmp_renamed <- tmp %>% rename("Subsidy Price" = Subsidy_price1,
-                              #"Total Population" = total_pop,
-                              #"Youth bulge(% of total 14 and under)" = pop_0_14,
-                              #" Life Expectancy" = life_exp,
                               "Mortality Rate" = mort_rate, 
                               "Rural population (% of total)" = rur_tot_pop,
                               "Election Year"= Elec_yr,
-                              "Log(GDP per capita)" = logGDP)
-                              #"Polity V democracy" = democ,
-                              #"Polity V Autocracy" = autoc,
-                              #"Population growth" =pop_growth,
-                              #"Civil War Occurrence" = civ_war)
+                              "Log(GDP per capita)" = logGDP,
+                              "Collaborative Protest" = total_collab)
+                             
 
-datasummary_skim(tmp_renamed)
-datasummary_skim(dat)
+#create missing function 
+
+
+Range <- function(x) max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
+
+Missing = function(x) sum(is.na(x))
+
+
+
+# data_summary <- datasummary_skim(tmp_renamed)
+# datasummary_skim(dat)
+
+datasummary(All(tmp_renamed) ~ Mean + SD + Min + Median + Max + Histogram + Missing, 
+            data = tmp_renamed)
 
 
 ggplot(dat, aes(Subsidy_price1,total_collab))+
@@ -63,8 +72,10 @@ ggplot(dat, aes(Subsidy_price1,total_collab))+
     ylab("Amount of Subsidy ($)") + # Set axis label
     scale_x_continuous(breaks= c(2010, 2012, 2014, 2016, 2018, 2020))+
     theme_bw()+
-    facet_wrap(~State)
-  theme(axis.ticks.x=element_blank(),
+    facet_wrap(~Area)+
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.ticks.x=element_blank(),
         axis.ticks.y=element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
@@ -174,8 +185,7 @@ ggplot(dat, aes(cname, Subsidy_price1, fill = cname)) +
 ####
 ggplot(dat, aes(year, Subsidy_price1, total_collab)) +
   geom_line() +
-  facet_wrap(~cname)
-
+  facet_wrap(~cname, scales = "free")
 
 ggplot(dat, aes(year,USDprice)) +
   geom_line() +

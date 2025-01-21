@@ -17,7 +17,7 @@ library(AER)
 pth = 'C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/All_Data/'
 
 load(paste0(pth, 'dat.rda'))
-load(paste0(pth, 'dat_rob.rda'))
+load(paste0(pth, 'dat_rob.rda')) #robustness data- protests against the gov
 elec_yr= read_excel("C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/elec_yr.xlsx")
 
 elec_yr= rename(elec_yr, year = Year)
@@ -258,14 +258,14 @@ re = lmer(
 summary(re)$'coefficients'
 
 # run bell and jones model
-re3 = lmer(
-  logCMRwdi ~ 
-    logGDPcap_1_mean + logGDPcap_1_demean + 
-    logHIV_1_mean + logHIV_1_demean +
-    GDPgrowth_1_mean + GDPgrowth_1_demean + 
-    Polity_1_mean + Polity_1_demean + 
-    (1 | country), data=data)
-summary(re3)$'coefficients'
+# re3 = lmer(
+#   logCMRwdi ~ 
+#     logGDPcap_1_mean + logGDPcap_1_demean + 
+#     logHIV_1_mean + logHIV_1_demean +
+#     GDPgrowth_1_mean + GDPgrowth_1_demean + 
+#     Polity_1_mean + Polity_1_demean + 
+#     (1 | country), data=data)
+# summary(re3)$'coefficients'
 
 re3 = lmer(
   total_collab ~ Subsidy_price1_mean + Subsidy_price1_demean+
@@ -584,7 +584,7 @@ protest_dat= left_join(
 
 protest_dat$fac_cn = as.factor(protest_dat$Country)
 
-glm_mod=glmmadmb(total_collab ~ Subsidy_price1 + mort_rate + rur_tot_pop + 
+glm_mod=glmmadmb(total_collab ~ Subsidy_price1 + mort_rate + rur_tot_pop + elect_dem +
                    Elec_yr + logGDP
                  #log(GDP_per_capita)
                  + (1 | fac_cn),

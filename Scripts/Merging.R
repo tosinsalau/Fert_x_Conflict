@@ -71,7 +71,8 @@ dat <- final%>%
           "pop_growth" = "SP.POP.GROW", 
          "part_dem" = "v2x_partipdem",
          "opp_free" = "v2x_frassoc_thick" ,
-         "elect_dem" = "v2x_polyarchy")
+         "elect_dem" = "v2x_polyarchy",
+        "libdem" = "v2x_libdem")
 
 dat_rob <- robust_dat%>%
   rename("GDP_per_capita"= "NY.GDP.PCAP.PP.KD",
@@ -86,7 +87,8 @@ dat_rob <- robust_dat%>%
          "pop_growth" = "SP.POP.GROW", 
          "part_dem" = "v2x_partipdem",
          "opp_free" = "v2x_frassoc_thick" ,
-         "elect_dem" = "v2x_polyarchy")
+         "elect_dem" = "v2x_polyarchy",
+         "libdem" = "v2x_libdem")
 
 
 save(dat, file=paste0(pth, "dat.rda"))

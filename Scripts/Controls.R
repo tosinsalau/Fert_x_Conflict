@@ -77,7 +77,8 @@ dat1= merge(wb, vdem_fin[ , c("cname",
                              "year",
                              "v2x_partipdem",
                              "v2x_frassoc_thick",
-                             "v2x_polyarchy")], 
+                             "v2x_polyarchy",
+                             "v2x_libdem")], 
            by = c("cname","year"), all.x=TRUE)
 
 

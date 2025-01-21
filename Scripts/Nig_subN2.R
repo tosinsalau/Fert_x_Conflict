@@ -10,6 +10,7 @@ library(patchwork)
 library(pscl)
 library(ggeffects)
 library(stargazer)
+library(marginaleffects)
 
 pth = "C:/Users/salau/OneDrive - Michigan State University/Research/Fert_x_Conflict/Nigerian_states/"
 
@@ -149,7 +150,7 @@ datasummary_skim(Urea_MY, "categorical")
 datasummary_skim(Urea_YR)
 datasummary_skim(Urea_YR, "categorical")
 
-#model pool desc
+#model pool desc TABLE 3 paper
 model1=glm.nb(coop_events ~ subsidy, data=Urea_MY) ###1
 
 model2=glm.nb(coop_events ~ subsidy, data=Urea_YR)
@@ -157,8 +158,27 @@ model2=glm.nb(coop_events ~ subsidy, data=Urea_YR)
 
 stargazer(model1, model2)
 
+#prediction plott - fig 2 and 3
 
+plot_predictions(model1, condition='subsidy')+
+  labs(y = "Probability of Collaborative Protest", x = 'Subsidy level') +
+  theme_grey()+
+  #geom_jitter(data = moddat, aes(x = cinc, y = supp1, color = factor(supp1)))+
+  theme_bw()+
+  #scale_color_discrete(labels = c("0" = "No Foreign support", "1" = "Foreign support"))+
+  theme(legend.position = 'bottom',
+        axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank()) 
 
+plot_predictions(model2, condition='subsidy')+
+  labs(y = "Probability of Collaborative Protest", x = 'Subsidy level') +
+  theme_grey()+
+  #geom_jitter(data = moddat, aes(x = cinc, y = supp1, color = factor(supp1)))+
+  theme_bw()+
+  #scale_color_discrete(labels = c("0" = "No Foreign support", "1" = "Foreign support"))+
+  theme(legend.position = 'bottom',
+        axis.ticks.x=element_blank(),
+        axis.ticks.y=element_blank()) 
 
 #############################################3
 
